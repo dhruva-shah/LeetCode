@@ -1,3 +1,7 @@
+//Given a string, what is the minimum number of adjacent swaps required to convert a string into a palindrome. If not possible, return -1.
+//https://leetcode.com/discuss/interview-question/351783/
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
