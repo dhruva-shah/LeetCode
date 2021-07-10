@@ -1,0 +1,99 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s= "ntiin";
+            string s1 = "mamad";
+            string s2 = "asflkj";
+            string s3 = "aabb";
+
+            Console.WriteLine(GetMinSwaps(s));
+            Console.WriteLine(GetMinSwaps(s1));
+            Console.WriteLine(GetMinSwaps(s2));
+            Console.WriteLine(GetMinSwaps(s3));
+
+        }
+
+
+        static int GetMinSwaps(string s)
+        {
+            int result = 0;
+
+            //first check if palindrome is possible
+            if (!IsPalindromePossible(s))
+                return -1;
+
+            //if possible, start getting swaps
+            char[] chars = s.ToCharArray();
+            int start = 0, end = chars.Length-1;
+
+            while (end > start)
+            {
+                if (chars[start] != chars[end])
+                {
+                    int check = end;
+                    //try to find closest matching char
+                    while (check > start && chars[start] !=chars[check])
+                    {
+                        check--;
+                    }
+
+                    if (check == start)
+                    {
+                        //if no matching chars fond
+                        SwapByOne(chars, start);
+                        result++;
+                    }
+                    else
+                    {
+                        while (check < end)
+                        {
+                            //if matching chars found, move it to appropriate position
+                            SwapByOne(chars, check);
+                            result++;check++;
+                        }
+                    }
+                }
+                else
+                {
+                    //if chars are equal, move on
+                    start++;end--;
+                }
+            }
+
+            return result;
+        }
+
+        static void SwapByOne(char[] stringArray, int currentPosition)
+        {
+            var temp = stringArray[currentPosition+1];
+            stringArray[currentPosition + 1] = stringArray[currentPosition];
+            stringArray[currentPosition] = temp;
+        }
+
+        static bool IsPalindromePossible(string s)
+        {
+            int oddCount = 0;
+            int[] characters = new int[26];
+            for(int i = 0; i < s.Length; i++)
+            {
+                characters[s.ElementAt(i)-'a']++;
+            }
+            foreach(int val in characters)
+            {
+                if (val % 2 != 0)
+                    oddCount++;
+            }
+            return oddCount <= 1;
+
+        }
+    }
+}
