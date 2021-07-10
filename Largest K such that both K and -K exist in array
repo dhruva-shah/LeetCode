@@ -1,0 +1,55 @@
+//Write a function that, given an array A of N integers, returns the lagest integer K > 0 such that both values K and -K exist in array A. If there is no such integer, the function should return 0.
+//https://leetcode.com/discuss/interview-question/406031/
+//Example 1:
+
+//Input:[3, 2, -2, 5, -3]
+//Output: 3
+//Example 2:
+
+//Input:[1, 2, 3, -4]
+//Output: 0
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] array1 = { 3, 2, -2, 5, -3 };
+            int[] array2 = { 1, 2, 3, -4 };
+
+            Console.WriteLine(MaxInt(array1));
+            Console.WriteLine(MaxInt(array2));
+
+        }
+
+
+        static int MaxInt(int[] values)
+        {
+            int maxInt = 0;
+            HashSet<int> currentVals = new HashSet<int>();
+            foreach(int val in values)
+            {
+                //if matching opposite num exists,check if it's absolute value is great than current max value
+                if (currentVals.Contains(-val))
+                    maxInt = Math.Max(maxInt, Math.Abs(val));
+                //else add to the set
+                else
+                    currentVals.Add(val);
+            }
+            //O(n)
+            return maxInt;
+        }
+
+
+
+    }
+}
